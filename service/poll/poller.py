@@ -20,7 +20,7 @@ def poll(repeat=True):
             # Write your polling logic, here
             # Do not copy entire file
             pass
-        
+
         except Exception as e:
             print(e, file=sys.stderr)
 
