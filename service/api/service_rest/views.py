@@ -31,7 +31,8 @@ class AppointmentDetailEncoder(ModelEncoder):
         "reason",
         "status",
         "vin",
-        "customer"
+        "customer",
+        "is_vip",
     ]
     encoders = {
         "technician": AutomobileVODetailEncoder()
@@ -94,44 +95,30 @@ def api_list_appointments(request):
         appointments = Appointment.objects.all()
         return JsonResponse(
             {"appointments": appointments},
-            encoder=AppointmentDetailEncoder,
-            safe=False,
+            encoder=AppointmentDetailEncoder
         )
-    elif request.method == "POST":
+    else:
         content = json.loads(request.body)
+    try:
+        technician_id = content["technician_id"]
+        technician = Technician.objects.get(id=technician_id)
+        content["technician"] = technician
 
-        try:
-            date_time = content.get("date_time", "")
-            reason = content.get("reason", "")
-            status = content.get("status", "")
-            vin = content.get("vin", "")
-            customer = content.get("customer", "")
-            technician_id = content.get("technician_id", "")
+        check = AutomobileVO.objects.filter(vin=content["vin"])
+        if check.count() > 0:
+            content["is_vip"] = True
 
-            try:
-                technician = Technician.objects.get(id=technician_id)
-            except Technician.DoesNotExist:
-                return JsonResponse({"message": "Technician does not exist"}, status=400)
+        else:
+            content["is_vip"] = False
 
-            appointment = Appointment.objects.create(
-                date_time=date_time,
-                reason=reason,
-                status=status,
-                vin=vin,
-                customer=customer,
-                technician=technician,
-            )
-
-            return JsonResponse(
-                {"appointment": appointment},
-                encoder=AppointmentDetailEncoder,
-                status=201,
-                safe=False
-            )
-        except json.JSONDecodeError:
-            return HttpResponseBadRequest("Error: Invalid JSON data.")
-        except Exception as e:
-            return HttpResponseBadRequest(f"Error: An unexpected error occured - {str(e)}")
+        appointment = Appointment.objects.create(**content)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentDetailEncoder,
+            safe=False
+        )
+    except Appointment.DoesNotExist:
+        return JsonResponse({"message": "Appointment does not exist"}, status=404)
 
 @require_http_methods(["DELETE", "GET"])
 def api_show_appointments(request, id):
