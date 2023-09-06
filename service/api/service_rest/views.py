@@ -26,6 +26,7 @@ class TechnicianDetailEncoder(ModelEncoder):
 class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
         "date_time",
         "reason",
         "status",
@@ -38,7 +39,6 @@ class AppointmentDetailEncoder(ModelEncoder):
 
 @require_http_methods(["GET", "POST"])
 def api_list_technicians(request):
-
     if request.method == "GET":
         technicians = Technician.objects.all()
         return JsonResponse(
@@ -87,3 +87,112 @@ def api_show_technicians(request, id):
             return JsonResponse({"message": "Technician deleted"})
 
     return HttpResponseBadRequest("Error: Invalid request")
+
+@require_http_methods(["GET", "POST"])
+def api_list_appointments(request):
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        return JsonResponse(
+            {"appointments": appointments},
+            encoder=AppointmentDetailEncoder,
+            safe=False,
+        )
+    elif request.method == "POST":
+        content = json.loads(request.body)
+
+        try:
+            date_time = content.get("date_time", "")
+            reason = content.get("reason", "")
+            status = content.get("status", "")
+            vin = content.get("vin", "")
+            customer = content.get("customer", "")
+            technician_id = content.get("technician_id", "")
+
+            try:
+                technician = Technician.objects.get(id=technician_id)
+            except Technician.DoesNotExist:
+                return JsonResponse({"message": "Technician does not exist"}, status=400)
+
+            appointment = Appointment.objects.create(
+                date_time=date_time,
+                reason=reason,
+                status=status,
+                vin=vin,
+                customer=customer,
+                technician=technician,
+            )
+
+            return JsonResponse(
+                {"appointment": appointment},
+                encoder=AppointmentDetailEncoder,
+                status=201,
+                safe=False
+            )
+        except json.JSONDecodeError:
+            return HttpResponseBadRequest("Error: Invalid JSON data.")
+        except Exception as e:
+            return HttpResponseBadRequest(f"Error: An unexpected error occured - {str(e)}")
+
+@require_http_methods(["DELETE", "GET"])
+def api_show_appointments(request, id):
+    if request.method == "GET":
+        try:
+            appointment = Appointment.objects.get(id=id)
+            return JsonResponse(
+                {"appointment": appointment},
+                encoder=AppointmentDetailEncoder,
+                safe=False
+            )
+        except Appointment.DoesNotExist:
+            return JsonResponse({"message": "Appointment does not exist"}, status=404)
+
+    elif request.method == "DELETE":
+        count, _ = Appointment.objects.filter(id=id).delete()
+        if count > 0:
+            return JsonResponse({"message": "Appointment deleted"})
+
+    return HttpResponseBadRequest("Error: Invalid request")
+
+@require_http_methods(["PUT"])
+def api_cancel_appointments(request, id):
+    if request.method == "PUT":
+        try:
+            appointment = Appointment.objects.get(id=id)
+            request_body = json.loads(request.body.decode(('utf-8')))
+            if "status" in request_body and request_body["status"] == "cancel":
+                appointment.status = "cancel"
+                appointment.save()
+
+                return JsonResponse(
+                    {"status": "success", "message": "Appointment has been canceled sucessfully"},
+                    status=200,
+                )
+            else:
+                return JsonResponse(
+                    {"message": "Invalid status. Value needs to be 'cancel'"},
+                    status=400,
+                )
+        except Appointment.DoesNotExist:
+            return JsonResponse({"message": "Appointment does not exist"}, status=404)
+
+@require_http_methods(["PUT"])
+def api_finish_appointents(request, id):
+    if request.method == "PUT":
+        try:
+            appointment = Appointment.objects.get(id=id)
+            request_body = json.loads(request.body.decode(('utf-8')))
+            if "status" in request_body and request_body['status'] == "finished":
+                appointment.status = "finished"
+                appointment.save()
+
+                return JsonResponse(
+                    {"status": "success", "message": "Appointment has been marked as finished"},
+                    status=200,
+                )
+            else:
+                return JsonResponse(
+                    {"message": "Invalid status. Value needs to be 'finished'"},
+                    status=400,
+                )
+        except Appointment.DoesNotExist:
+            return JsonResponse({"message": "Appointment does not exist"}, status=404)
