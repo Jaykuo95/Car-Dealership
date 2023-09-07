@@ -16,7 +16,7 @@ function ModelForm() {
         }
         }
         getManufacturers()
-        }, {});
+    }, {});
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -75,8 +75,8 @@ function ModelForm() {
                             <select id="manufacturer_id" value={manufacturer_id} onChange={handleManufacturerChange} multiple={false} name="manufacturer_id" className="form-control">
                             <option value="">Choose a manufacturer...</option>
                             {manufacturers.map((manufacturer) => (
-                                <option key={manufacturer_id} value={manufacturer_id}>
-                                {manufacturer_id.name}
+                                <option key={manufacturer.id} value={manufacturer.id}>
+                                    {manufacturer.name}
                                 </option>
                             ))}
                             </select>
