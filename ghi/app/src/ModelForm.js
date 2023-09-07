@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-function VehicleForm() {
+function ModelForm() {
     const [name, setName] = useState('')
     const [picture_url, setPictureUrl] = useState('')
     const [manufacturer_id, setManufacturer] = useState('')
@@ -90,4 +90,4 @@ function VehicleForm() {
     )
 }
 
-export default VehicleForm
+export default ModelForm
