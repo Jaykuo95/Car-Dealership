@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-function SalespersonList() {
-    const [salesperson, setSalesperson] = useState([]);
+function CustomerList() {
+    const [customers, setCustomers] = useState([]);
 
     const getData = async () => {
-        const response = await fetch('http://localhost:8090/api/salespeople/');
+        const response = await fetch('http://localhost:8090/api/customers/');
         if (response.ok) {
             const data = await response.json();
-            setSalesperson(data.salesperson)
+            setCustomers(data.customer)
         } else {
             console.log(response);
         };
@@ -23,16 +23,18 @@ function SalespersonList() {
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Employee Id</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
                 </tr>
             </thead>
             <tbody>
-                {salesperson.map(salesperson => {
+                {customers.map(customer => {
                     return (
-                        <tr key={salesperson.id}>
-                            <td>{salesperson.first_name}</td>
-                            <td>{salesperson.last_name}</td>
-                            <td>{salesperson.employee_id}</td>
+                        <tr key={customer.id}>
+                            <td>{customer.first_name}</td>
+                            <td>{customer.last_name}</td>
+                            <td>{customer.phone_number}</td>
+                            <td>{customer.address}</td>
                         </tr>
                     );
                 })}
@@ -41,4 +43,4 @@ function SalespersonList() {
     );
 };
 
-export default SalespersonList;
+export default CustomerList;
