@@ -151,24 +151,24 @@ def api_list_sale(request):
         )
     elif request.method == "POST":
         content = json.loads(request.body)
-        # try:
-        salesperson_id = content["salesperson"]
-        salesperson = Salesperson.objects.get(id=salesperson_id)
-        content["salesperson"] = salesperson
+        try:
+            salesperson_id = content["salesperson"]
+            salesperson = Salesperson.objects.get(id=salesperson_id)
+            content["salesperson"] = salesperson
 
-        customer_id = content["customer"]
-        customer = Customer.objects.get(id=customer_id)
-        content["customer"] = customer
+            customer_id = content["customer"]
+            customer = Customer.objects.get(id=customer_id)
+            content["customer"] = customer
 
-        vin = content["automobile"]
-        automobile = AutomobileVO.objects.get(vin=vin)
-        content["automobile"] = automobile
+            vin = content["automobile"]
+            automobile = AutomobileVO.objects.get(vin=vin)
+            content["automobile"] = automobile
 
-        # except AutomobileVO.DoesNotExist:
-        #     return JsonResponse(
-        #         {"message": "Unable to create new sale"},
-        #         status=400
-        #     )
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Unable to create new sale"},
+                status=400
+            )
         sales = Sale.objects.create(**content)
         return JsonResponse(
             {"sales": sales},
