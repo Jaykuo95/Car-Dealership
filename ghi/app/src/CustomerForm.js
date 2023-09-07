@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-function SalespersonForm() {
+function CustomerForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [employeeId, setEmployeeId] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
 
     const handleFirstNameChange = (event) => {
         const value = event.target.value;
@@ -13,19 +14,24 @@ function SalespersonForm() {
         const value = event.target.value;
         setLastName(value);
     }
-    const handleEmployeeIdChange = (event) => {
+    const handleAddressChange = (event) => {
         const value = event.target.value;
-        setEmployeeId(value);
+        setAddress(value);
+    }
+    const handlePhoneChange = (event) => {
+        const value = event.target.value;
+        setPhone(value);
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {}
         data.first_name = firstName;
         data.last_name = lastName;
-        data.employee_id = employeeId;
+        data.phone_number = phone;
+        data.address = address;
         console.log(data);
 
-        const salespersonUrl = 'http://localhost:8090/api/salespeople/';
+        const customerUrl = 'http://localhost:8090/api/customers/';
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -33,13 +39,14 @@ function SalespersonForm() {
                 'Content-Type': 'application/json',
             },
         };
-        const response = await fetch(salespersonUrl, fetchConfig);
+        const response = await fetch(customerUrl, fetchConfig);
         if (response.ok) {
-            const newSalesperson = await response.json();
-            console.log(newSalesperson);
+            const newCustomer = await response.json();
+            console.log(newCustomer);
             setFirstName('');
             setLastName('');
-            setEmployeeId('');
+            setAddress('');
+            setPhone('');
         };
     };
 
@@ -48,8 +55,8 @@ function SalespersonForm() {
             <div className="row" >
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
-                        <h1>Create a new Salesperson</h1>
-                        <form onSubmit={handleSubmit} id="create-salesperson-form">
+                        <h1>Create a new Customer</h1>
+                        <form onSubmit={handleSubmit} id="create-customers-form">
                             <div className="form-floating mb-3">
                                 <input onChange={handleFirstNameChange} value={firstName} placeholder="First Name" required type="text" name="firstName" id="first_name" className="form-control" />
                                 <label htmlFor="firstName">First Name</label>
@@ -59,8 +66,12 @@ function SalespersonForm() {
                                 <label htmlFor="lastName">Last Name</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={handleEmployeeIdChange} value={employeeId} placeholder="Employee Id" required type="text" name="employeeId" id="employee_id" className="form-control" />
-                                <label htmlFor="employeeId">Employee Id</label>
+                                <input onChange={handleAddressChange} value={address} placeholder="Address" required type="text" name="address" id="address" className="form-control" />
+                                <label htmlFor="address">Address</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input onChange={handlePhoneChange} value={phone} placeholder="Phone" required type="text" name="phone" id="phone_number" className="form-control" />
+                                <label htmlFor="phone">Phone Number</label>
                             </div>
                             <button className="btn btn-primary">Create</button>
                         </form>
@@ -71,4 +82,4 @@ function SalespersonForm() {
     );
 };
 
-export default SalespersonForm;
+export default CustomerForm;
