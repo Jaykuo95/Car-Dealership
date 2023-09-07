@@ -28,7 +28,7 @@ class AutomobileVO(models.Model):
 
 
 class Sale(models.Model):
-    price = models.PositiveBigIntegerField(null=True)
+    price = models.TextField(max_length=200, null=True)
     automobile = models.ForeignKey(
         AutomobileVO,
         related_name="sales",
