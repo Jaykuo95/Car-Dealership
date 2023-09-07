@@ -33,9 +33,10 @@ class AppointmentDetailEncoder(ModelEncoder):
         "vin",
         "customer",
         "is_vip",
+        "technician"
     ]
     encoders = {
-        "technician": AutomobileVODetailEncoder()
+        "technician": TechnicianDetailEncoder()
     }
 
 @require_http_methods(["GET", "POST"])
@@ -117,8 +118,13 @@ def api_list_appointments(request):
             encoder=AppointmentDetailEncoder,
             safe=False
         )
-    except Appointment.DoesNotExist:
-        return JsonResponse({"message": "Appointment does not exist"}, status=404)
+    except:
+        response = JsonResponse(
+            {"message": "Could not make appointment"}
+        )
+        response.status_code = 400
+        return response
+
 
 @require_http_methods(["DELETE", "GET"])
 def api_show_appointments(request, id):
@@ -140,46 +146,41 @@ def api_show_appointments(request, id):
 
     return HttpResponseBadRequest("Error: Invalid request")
 
+
 @require_http_methods(["PUT"])
 def api_cancel_appointments(request, id):
-    if request.method == "PUT":
-        try:
-            appointment = Appointment.objects.get(id=id)
-            request_body = json.loads(request.body.decode(('utf-8')))
-            if "status" in request_body and request_body["status"] == "cancel":
-                appointment.status = "cancel"
-                appointment.save()
+    try:
+        appointment = Appointment.objects.get(id=id)
+        appointment.status = "Canceled"
+        appointment.save()
 
-                return JsonResponse(
-                    {"status": "success", "message": "Appointment has been canceled sucessfully"},
-                    status=200,
-                )
-            else:
-                return JsonResponse(
-                    {"message": "Invalid status. Value needs to be 'cancel'"},
-                    status=400,
-                )
-        except Appointment.DoesNotExist:
-            return JsonResponse({"message": "Appointment does not exist"}, status=404)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentDetailEncoder,
+            safe=False,
+        )
+    except:
+        response = JsonResponse(
+            {"message": "Status failed to updated"}
+        )
+        response.status_code = 400
+        return response
 
 @require_http_methods(["PUT"])
-def api_finish_appointents(request, id):
-    if request.method == "PUT":
-        try:
-            appointment = Appointment.objects.get(id=id)
-            request_body = json.loads(request.body.decode(('utf-8')))
-            if "status" in request_body and request_body['status'] == "finished":
-                appointment.status = "finished"
-                appointment.save()
+def api_finish_appointments(request, id):
+    try:
+        appointment = Appointment.objects.get(id=id)
+        appointment.status = "Finished"
+        appointment.save()
 
-                return JsonResponse(
-                    {"status": "success", "message": "Appointment has been marked as finished"},
-                    status=200,
-                )
-            else:
-                return JsonResponse(
-                    {"message": "Invalid status. Value needs to be 'finished'"},
-                    status=400,
-                )
-        except Appointment.DoesNotExist:
-            return JsonResponse({"message": "Appointment does not exist"}, status=404)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentDetailEncoder,
+            safe=False,
+        )
+    except:
+        response = JsonResponse(
+            {"message": "Status failed to updated"}
+        )
+        response.status_code = 400
+        return response

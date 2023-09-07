@@ -7,5 +7,5 @@ urlpatterns = [
     path('appointments/', views.api_list_appointments, name='api_list_appointments'),
     path('appointments/<int:id>/', views.api_show_appointments, name="api_show_appointments"),
     path('appointments/<int:id>/cancel/', views.api_cancel_appointments, name="api_cancel_appointments"),
-    path('appointments/<int:id>/finish/', views.api_finish_appointents, name="api_finish_appointments"),
+    path('appointments/<int:id>/finish/', views.api_finish_appointments, name="api_finish_appointments"),
 ]

@@ -5,17 +5,17 @@ function TechnicianForm() {
     const [lastName, setLastName] = useState("");
     const [employeeId, setEmployeeId] = useState("");
 
-    const handleFirstName = (event) => {
+    const handleFirstNameChange = (event) => {
         const value = event.target.value;
         setFirstName(value);
     }
 
-    const handleLastName = (event) => {
+    const handleLastNameChange = (event) => {
         const value = event.target.value;
         setLastName(value);
     }
 
-    const handleEmployeeId = (event) => {
+    const handleEmployeeIdChange = (event) => {
         const value = event.target.value;
         setEmployeeId(value);
     }
@@ -56,15 +56,15 @@ function TechnicianForm() {
                     <h1>Add a Technician</h1>
                     <form onSubmit={handleSubmit} id="add-technician-form">
                         <div className="form-floating mb-3">
-                            <input value={firstName} onChange={handleFirstName} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
+                            <input value={firstName} onChange={handleFirstNameChange} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
                             <label htmlFor="first_name">First Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input value={lastName} onChange={handleLastName} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
+                            <input value={lastName} onChange={handleLastNameChange} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
                             <label htmlFor="last_name">Last Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input value={employeeId} onChange={handleEmployeeId} placeholder="Employee Id" required type="text" name="employee_id" id="employee_id" className="form-control" />
+                            <input value={employeeId} onChange={handleEmployeeIdChange} placeholder="Employee Id" required type="text" name="employee_id" id="employee_id" className="form-control" />
                             <label htmlFor="employee_id">Employee ID</label>
                         </div>
                         <button className="btn btn-primary">Create</button>
