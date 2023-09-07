@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
+import ManufacturerList from './ManufactuerList';
+import ManufacturerForm from './ManufacturerForm';
 import SalespersonList from './SalespersonList';
 import SalespersonForm from './SalespersonForm';
 import CustomerList from './CustomerList';
@@ -21,6 +23,10 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="manufacturers/">
+            <Route index element={<ManufacturerList />} />
+            <Route path="create/" element={<ManufacturerForm />} />
+          </Route>
           <Route path="salespeople/">
             <Route index element={<SalespersonList />} />
             <Route path="create/" element={<SalespersonForm />} />
