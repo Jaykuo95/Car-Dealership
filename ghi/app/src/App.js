@@ -13,6 +13,8 @@ import TechnicianList from "./TechnicianList";
 import AppointmentForm from "./AppointmentForm"
 import AppointmentList from "./ServiceAppointments"
 import ServiceHistory from './ServiceHistory';
+import ModelList from './ModelList';
+
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
           <Route path="appointments/create" element={<AppointmentForm />} />
           <Route path="appointments" element={<AppointmentList />} />
           <Route path="appointments/history" element={<ServiceHistory />} />
+          <Route path="models" element={<ModelList />} />
         </Routes>
       </div>
     </BrowserRouter>
