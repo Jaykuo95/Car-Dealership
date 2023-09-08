@@ -29,45 +29,62 @@ Team:
 7. Access the application at http://localhost:3000/
 #### Relevant URLs:
 
-| Feature          | URL          |
-|------------------|--------------|
-
 ###### Manufacturers
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Manufacturers   | http://localhost:3000/manufacturers/        |
 |Create Manufacturers | http://localhost:3000/manufacturers/create/ |
 
 ###### Models
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Models   | http://localhost:3000/models         |
 |Create Models | http://localhost:3000/models/create/ |
 
 ###### Automobiles
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Automobiles   | http://localhost:3000/automobiles/        |
 |Create Automobiles | http://localhost:3000/automobiles/create/ |
 
 ###### Salespeople
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Salesperson   | http://localhost:3000/salespeople/        |
 |Create Salesperson | http://localhost:3000/salespeople/create/ |
 
 ###### Customers
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Customer   | http://localhost:3000/customers/        |
 |Create Cusotmer | http://localhost:3000/customers/create/ |
 
 ###### Sales
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Sales   | http://localhost:3000/sales/        |
 |Create Sales | http://localhost:3000/sales/create/ |
 
 ###### Salesperson History
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Salesperson History | http://localhost:3000/sales/history/ |
 
 ###### Technician
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Technician   | http://localhost:3000/technicians/     |
 |Create Technician | http://localhost:3000/technicians/new/ |
 
 ###### Service Appointments
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Appointments   | http://localhost:3000/appointments/        |
 |Create Appointments | http://localhost:3000/appointments/create/ |
 
 ###### Service History
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Service History | http://localhost:3000/appointments/history/ |
 
 
@@ -96,7 +113,7 @@ For the sales microservice, in the back-end I added the app 'sales_rest.apps.Sal
 |:----------------:|:---------------:|:------------:|
 
 
-###### Salespeople
+#### Salespeople
 | Feature          | Method          | URL          |
 |:----------------:|:---------------:|:------------:|
 |List Salesperson   | GET    | http://localhost:8090/api/salespeople/ |
@@ -148,7 +165,7 @@ JSON Response:
 }
 ```
 
-###### Customers
+#### Customers
 | Feature          | Method          | URL          |
 |:----------------:|:---------------:|:------------:|
 |List Customer   | GET    | http://localhost:8090/api/customers/ |
@@ -204,7 +221,7 @@ JSON Response:
 	"deleted": true
 }
 ```
-###### Sales
+#### Sales
 | Feature          | Method          | URL          |
 |:----------------:|:---------------:|:------------:|
 |List Sales  | GET    | http://localhost:8090/api/sales/ |
