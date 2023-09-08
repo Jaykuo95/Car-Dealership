@@ -62,7 +62,7 @@ function ServiceHistory() {
                                 <td>{String(appointment.is_vip ? "Yes" : "No")}</td>
                                 <td>{appointment.customer}</td>
                                 <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                                <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                                <td>{new Date(appointment.date_time).toLocaleTimeString('en-US', { timeZone: "UTC", hour: "2-digit", minute: "2-digit" })}</td>
                                 <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                                 <td>{appointment.reason}</td>
                                 <td>{appointment.status}</td>
