@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-function ModelList(){
+function ModelList() {
     const [models, setModels] = useState([]);
 
     const getData = async () => {
@@ -31,10 +31,10 @@ function ModelList(){
                     {models.map(model => {
                         return (
                             <tr key={model.href}>
-                                <td>{ model.name }</td>
-                                <td>{ model.manufacturer.name }</td>
+                                <td>{model.name}</td>
+                                <td>{model.manufacturer.name}</td>
                                 <td>
-                                    <img src={model.picture_url} className="img=fluid" style={{ height: "25%", width:"25%"}} />
+                                    <img src={model.picture_url} className="img=fluid" style={{ height: "25%", width: "25%" }} />
                                 </td>
                             </tr>
                         );
@@ -42,6 +42,7 @@ function ModelList(){
                 </tbody>
             </table>
         </div>
-    )}
+    )
+}
 
 export default ModelList;
