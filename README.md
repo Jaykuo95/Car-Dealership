@@ -109,9 +109,6 @@ For the sales microservice, in the back-end I added the app 'sales_rest.apps.Sal
 
 #### RESTful API calls:
 
-| Feature          | Method          | URL          |
-|:----------------:|:---------------:|:------------:|
-
 
 #### Salespeople
 | Feature          | Method          | URL          |
