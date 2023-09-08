@@ -12,19 +12,47 @@ function SalesForm() {
     const [price, setPrice] = useState('');
 
     const handleAutomobileChange = (event) => {
-        setAutomobile(event.target.value);
+        const value = event.target.value
+        setAutomobile(value);
     }
     const handleSalespersonChange = (event) => {
-        setSalesperson(event.target.value);
+        const value = event.target.value;
+        setSalesperson(value);
     }
     const handleCustomerChange = (event) => {
-        setCustomer(event.target.value);
+        const value = event.target.value;
+        setCustomer(value);
     }
     const handlePriceChange = (event) => {
-        setPrice(event.target.value);
+        const value = event.target.value;
+        setPrice(value);
     }
 
-    const fetchSalesData = async () => {
+    const getAutomobilesData = async () => {
+        const automobilesUrl = 'http://localhost:8100/api/automobiles/';
+        const response = await fetch(automobilesUrl);
+        if (response.ok) {
+            const data = await response.json();
+            setAutomobiles(data.autos)
+        }
+    }
+    const getSalespersonData = async () => {
+        const salespersonUrl = 'http://localhost:8090/api/salespeople/';
+        const response = await fetch(salespersonUrl);
+        if (response.ok) {
+            const data = await response.json();
+            setSalespersons(data.salesperson)
+        }
+    }
+    const getCustomerData = async () => {
+        const customerUrl = 'http://localhost:8090/api/customers/';
+        const response = await fetch(customerUrl);
+        if (response.ok) {
+            const data = await response.json();
+            setCustomers(data.customer)
+        }
+    }
+    const getSalesData = async () => {
         const salesUrl = 'http://localhost:8090/api/sales/';
         const response = await fetch(salesUrl);
         if (response.ok) {
@@ -33,38 +61,11 @@ function SalesForm() {
         }
     }
 
-    const fetchAutomobilesData = async () => {
-        const automobilesUrl = 'http://localhost:8100/api/automobiles/';
-        const response = await fetch(automobilesUrl);
-        if (response.ok) {
-            const data = await response.json();
-            setAutomobiles(data.autos)
-        }
-    }
-
-    const fetchSalespersonData = async () => {
-        const salespersonUrl = 'http://localhost:8090/api/salespeople/';
-        const response = await fetch(salespersonUrl);
-        if (response.ok) {
-            const data = await response.json();
-            setSalespersons(data.salesperson)
-        }
-    }
-
-    const fetchCustomerData = async () => {
-        const customerUrl = 'http://localhost:8090/api/customers/';
-        const response = await fetch(customerUrl);
-        if (response.ok) {
-            const data = await response.json();
-            setCustomers(data.customer)
-        }
-    }
-
     useEffect(() => {
-        fetchAutomobilesData();
-        fetchSalespersonData();
-        fetchCustomerData();
-        fetchSalesData();
+        getAutomobilesData();
+        getSalespersonData();
+        getCustomerData();
+        getSalesData();
     }, [])
 
     const handleSubmit = async (event) => {
@@ -76,16 +77,16 @@ function SalesForm() {
         data.price = price;
         console.log(data);
 
-        const salesRecordUrl = 'http://localhost:8090/api/sales/'
+        const salesUrl = 'http://localhost:8090/api/sales/'
         const fetchConfig = {
-            method: "post",
+            method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             }
         }
 
-        const response = await fetch(salesRecordUrl, fetchConfig);
+        const response = await fetch(salesUrl, fetchConfig);
         if (response.ok) {
             const newSale = await response.json();
             console.log(newSale);
@@ -156,6 +157,6 @@ function SalesForm() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 export default SalesForm
