@@ -58,7 +58,8 @@ function ServiceHistory() {
                     {appointments.map(appointment => {
                         return (
                             <tr key={appointment.id}>
-                                <td>{String(appointment.is_vip)}</td>
+                                <td>{appointment.vin}</td>
+                                <td>{String(appointment.is_vip ? "Yes" : "No")}</td>
                                 <td>{appointment.customer}</td>
                                 <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
                                 <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
