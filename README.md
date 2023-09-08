@@ -141,7 +141,7 @@ JSON Body:
 {
 	"first_name": "Salesperson",
 	"last_name": "Two",
-	"employee_id": "Salesperson2"
+	"employee_id": "2nd"
 }
 ```
 JSON Response:
