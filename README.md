@@ -98,16 +98,136 @@ For the sales microservice, in the back-end I added the app 'sales_rest.apps.Sal
 
 ###### Salespeople
 |List Salesperson   | GET    | http://localhost:8090/api/salespeople/ |
+JSON Response:
+{
+    "salesperson": [
+		{
+			"id": 1,
+			"first_name": "Salesperson",
+			"last_name": "One",
+			"employee_id": "1st"
+		}
+    ]
+}
 |Create Salesperson | POST   | http://localhost:8090/api/salespeople/ |
-|Delete Salesperson | DELETE | http://localhost:8090/api/salespeople/ |
+JSON Body:
+{
+	"first_name": "Salesperson",
+	"last_name": "Two",
+	"employee_id": "Salesperson2"
+}
 
+JSON Response:
+{
+	"id": 2,
+	"first_name": "Salesperson",
+	"last_name": "Two",
+	"employee_id": "2nd"
+}
+|Delete Salesperson | DELETE | http://localhost:8090/api/salespeople/ |
+JSON Response:
+{
+	"deleted": true
+}
 
 ###### Customers
 |List Customer   | GET    | http://localhost:8090/api/customers/ |
+JSON Response:
+{
+	"customer": [
+		{
+			"id": 1,
+			"first_name": "Customer",
+			"last_name": "One",
+			"address": "1 One Lane, First City, CA 11111",
+			"phone_number": 1111111111
+		}
+	]
+}
 |Create Cusotmer | POST   | http://localhost:8090/api/customers/ |
+JSON Body:
+{
+	"first_name": "Second",
+	"last_name": "Two",
+	"address": "2 Two Lane, Second City, CA 22222",
+	"phone_number": "2222222222"
+}
+JSON Response:
+{
+	"id": 2,
+	"first_name": "Second",
+	"last_name": "Two",
+	"address": "2 Two Lane, Second City, CA 22222",
+	"phone_number": "2222222222"
+}
 |Delete Customer | DELETE | http://localhost:8090/api/customers/ |
+JSON Response:
+{
+	"deleted": true
+}
 
 ###### Sales
 |List Sales  | GET    | http://localhost:8090/api/sales/ |
+JSON Response:
+{
+	"sales": [
+		{
+			"id": 1,
+			"price": "$24900.00",
+			"salesperson": {
+				"id": 1,
+				"first_name": "Salesperson",
+				"last_name": "One",
+				"employee_id": "1st"
+			},
+			"customer": {
+				"id": 1,
+				"first_name": "Buyer",
+				"last_name": "One",
+				"address": "1 One Lane, First City, CA 11111",
+				"phone_number": 1111111111
+			},
+			"automobile": {
+				"vin": "HF4NA1261RT055073",
+				"sold": true
+			}
+		}
+	]
+}
 |Create Sale | POST   | http://localhost:8090/api/sales/ |
+JSON Body:
+{
+	"price": "$27000.00",
+	"automobile": "1C3CC5FB2AN120174",
+	"salesperson": 2,
+	"customer": 2
+}
+JSON Response:
+{
+	"sales": {
+		"id": 2,
+		"price": "$27000.00",
+		"salesperson": {
+			"id": 1,
+			"first_name": "Salesperson",
+			"last_name": "One",
+			"employee_id": "1st"
+		},
+		"customer": {
+			"id": 2,
+			"first_name": "Second",
+			"last_name": "Two",
+			"address": "2 Two Lane, Second City, CA 22222",
+			"phone_number": 2222222222
+		},
+		"automobile": {
+			"vin": "1C3CC5FB2AN120174",
+			"sold": false
+		}
+	}
+}
 |Delete Sale | DELETE | http://localhost:8090/api/sales/ |
+JSON Response:
+{
+	"deleted": true
+}
