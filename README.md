@@ -93,12 +93,16 @@ For the sales microservice, in the back-end I added the app 'sales_rest.apps.Sal
 #### RESTful API calls:
 
 | Feature          | Method          | URL          |
-|:-----------------|:----------------|:-------------|
+|:----------------:|:---------------:|:------------:|
 
 
 ###### Salespeople
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |List Salesperson   | GET    | http://localhost:8090/api/salespeople/ |
+
 JSON Response:
+```
 {
     "salesperson": [
 		{
@@ -109,30 +113,48 @@ JSON Response:
 		}
     ]
 }
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Create Salesperson | POST   | http://localhost:8090/api/salespeople/ |
+
 JSON Body:
+```
 {
 	"first_name": "Salesperson",
 	"last_name": "Two",
 	"employee_id": "Salesperson2"
 }
-
+```
 JSON Response:
+```
 {
 	"id": 2,
 	"first_name": "Salesperson",
 	"last_name": "Two",
 	"employee_id": "2nd"
 }
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Delete Salesperson | DELETE | http://localhost:8090/api/salespeople/ |
+
 JSON Response:
+```
 {
 	"deleted": true
 }
+```
 
 ###### Customers
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |List Customer   | GET    | http://localhost:8090/api/customers/ |
+
 JSON Response:
+```
 {
 	"customer": [
 		{
@@ -144,15 +166,25 @@ JSON Response:
 		}
 	]
 }
+
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Create Cusotmer | POST   | http://localhost:8090/api/customers/ |
+
 JSON Body:
+```
 {
 	"first_name": "Second",
 	"last_name": "Two",
 	"address": "2 Two Lane, Second City, CA 22222",
 	"phone_number": "2222222222"
 }
+```
+
 JSON Response:
+```
 {
 	"id": 2,
 	"first_name": "Second",
@@ -160,15 +192,25 @@ JSON Response:
 	"address": "2 Two Lane, Second City, CA 22222",
 	"phone_number": "2222222222"
 }
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Delete Customer | DELETE | http://localhost:8090/api/customers/ |
+
 JSON Response:
+```
 {
 	"deleted": true
 }
-
+```
 ###### Sales
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |List Sales  | GET    | http://localhost:8090/api/sales/ |
+
 JSON Response:
+```
 {
 	"sales": [
 		{
@@ -194,15 +236,24 @@ JSON Response:
 		}
 	]
 }
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Create Sale | POST   | http://localhost:8090/api/sales/ |
+
 JSON Body:
+```
 {
 	"price": "$27000.00",
 	"automobile": "1C3CC5FB2AN120174",
 	"salesperson": 2,
 	"customer": 2
 }
+```
+
 JSON Response:
+```
 {
 	"sales": {
 		"id": 2,
@@ -226,8 +277,14 @@ JSON Response:
 		}
 	}
 }
+```
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Delete Sale | DELETE | http://localhost:8090/api/sales/ |
+
 JSON Response:
+```
 {
 	"deleted": true
 }
+```
