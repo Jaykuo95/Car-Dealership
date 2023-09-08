@@ -16,7 +16,7 @@ function ModelForm() {
         }
         }
         getManufacturers()
-    }, {});
+    }, []);
 
     async function handleSubmit(event) {
         event.preventDefault()
