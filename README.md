@@ -29,45 +29,62 @@ Team:
 7. Access the application at http://localhost:3000/
 #### Relevant URLs:
 
-| Feature          | URL          |
-|------------------|--------------|
-
 ###### Manufacturers
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Manufacturers   | http://localhost:3000/manufacturers/        |
 |Create Manufacturers | http://localhost:3000/manufacturers/create/ |
 
 ###### Models
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Models   | http://localhost:3000/models         |
 |Create Models | http://localhost:3000/models/create/ |
 
 ###### Automobiles
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Automobiles   | http://localhost:3000/automobiles/        |
 |Create Automobiles | http://localhost:3000/automobiles/create/ |
 
 ###### Salespeople
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Salesperson   | http://localhost:3000/salespeople/        |
 |Create Salesperson | http://localhost:3000/salespeople/create/ |
 
 ###### Customers
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Customer   | http://localhost:3000/customers/        |
 |Create Cusotmer | http://localhost:3000/customers/create/ |
 
 ###### Sales
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Sales   | http://localhost:3000/sales/        |
 |Create Sales | http://localhost:3000/sales/create/ |
 
 ###### Salesperson History
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Salesperson History | http://localhost:3000/sales/history/ |
 
 ###### Technician
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Technician   | http://localhost:3000/technicians/     |
 |Create Technician | http://localhost:3000/technicians/new/ |
 
 ###### Service Appointments
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Appointments   | http://localhost:3000/appointments/        |
 |Create Appointments | http://localhost:3000/appointments/create/ |
 
 ###### Service History
+| Feature          | URL          |
+|:----------------:|:------------:|
 |List Service History | http://localhost:3000/appointments/history/ |
 
 
@@ -92,22 +109,196 @@ For the sales microservice, in the back-end I added the app 'sales_rest.apps.Sal
 
 #### RESTful API calls:
 
+
+#### Salespeople
 | Feature          | Method          | URL          |
-|:-----------------|:----------------|:-------------|
-
-
-###### Salespeople
+|:----------------:|:---------------:|:------------:|
 |List Salesperson   | GET    | http://localhost:8090/api/salespeople/ |
+
+JSON Response:
+```
+{
+    "salesperson": [
+		{
+			"id": 1,
+			"first_name": "Salesperson",
+			"last_name": "One",
+			"employee_id": "1st"
+		}
+    ]
+}
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Create Salesperson | POST   | http://localhost:8090/api/salespeople/ |
+
+JSON Body:
+```
+{
+	"first_name": "Salesperson",
+	"last_name": "Two",
+	"employee_id": "2nd"
+}
+```
+JSON Response:
+```
+{
+	"id": 2,
+	"first_name": "Salesperson",
+	"last_name": "Two",
+	"employee_id": "2nd"
+}
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Delete Salesperson | DELETE | http://localhost:8090/api/salespeople/ |
 
+JSON Response:
+```
+{
+	"deleted": true
+}
+```
 
-###### Customers
+#### Customers
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |List Customer   | GET    | http://localhost:8090/api/customers/ |
+
+JSON Response:
+```
+{
+	"customer": [
+		{
+			"id": 1,
+			"first_name": "Customer",
+			"last_name": "One",
+			"address": "1 One Lane, First City, CA 11111",
+			"phone_number": 1111111111
+		}
+	]
+}
+
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Create Cusotmer | POST   | http://localhost:8090/api/customers/ |
+
+JSON Body:
+```
+{
+	"first_name": "Second",
+	"last_name": "Two",
+	"address": "2 Two Lane, Second City, CA 22222",
+	"phone_number": "2222222222"
+}
+```
+
+JSON Response:
+```
+{
+	"id": 2,
+	"first_name": "Second",
+	"last_name": "Two",
+	"address": "2 Two Lane, Second City, CA 22222",
+	"phone_number": "2222222222"
+}
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Delete Customer | DELETE | http://localhost:8090/api/customers/ |
 
-###### Sales
+JSON Response:
+```
+{
+	"deleted": true
+}
+```
+#### Sales
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |List Sales  | GET    | http://localhost:8090/api/sales/ |
+
+JSON Response:
+```
+{
+	"sales": [
+		{
+			"id": 1,
+			"price": "$24900.00",
+			"salesperson": {
+				"id": 1,
+				"first_name": "Salesperson",
+				"last_name": "One",
+				"employee_id": "1st"
+			},
+			"customer": {
+				"id": 1,
+				"first_name": "Buyer",
+				"last_name": "One",
+				"address": "1 One Lane, First City, CA 11111",
+				"phone_number": 1111111111
+			},
+			"automobile": {
+				"vin": "HF4NA1261RT055073",
+				"sold": true
+			}
+		}
+	]
+}
+```
+
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Create Sale | POST   | http://localhost:8090/api/sales/ |
+
+JSON Body:
+```
+{
+	"price": "$27000.00",
+	"automobile": "1C3CC5FB2AN120174",
+	"salesperson": 2,
+	"customer": 2
+}
+```
+
+JSON Response:
+```
+{
+	"sales": {
+		"id": 2,
+		"price": "$27000.00",
+		"salesperson": {
+			"id": 1,
+			"first_name": "Salesperson",
+			"last_name": "One",
+			"employee_id": "1st"
+		},
+		"customer": {
+			"id": 2,
+			"first_name": "Second",
+			"last_name": "Two",
+			"address": "2 Two Lane, Second City, CA 22222",
+			"phone_number": 2222222222
+		},
+		"automobile": {
+			"vin": "1C3CC5FB2AN120174",
+			"sold": false
+		}
+	}
+}
+```
+| Feature          | Method          | URL          |
+|:----------------:|:---------------:|:------------:|
 |Delete Sale | DELETE | http://localhost:8090/api/sales/ |
+
+JSON Response:
+```
+{
+	"deleted": true
+}
+```
