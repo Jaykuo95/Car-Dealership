@@ -9,7 +9,7 @@ function SalespersonHistory() {
         const value = event.target.value;
         setSalesperson(value);
     }
-    const fetchSalespersonData = async () => {
+    const getSalespersonData = async () => {
         const salespersonUrl = 'http://localhost:8090/api/salespeople/';
         const response = await fetch(salespersonUrl);
         if (response.ok) {
@@ -17,7 +17,7 @@ function SalespersonHistory() {
             setSalespersons(data.salesperson)
         }
     }
-    const fetchSalesData = async () => {
+    const getSalesData = async () => {
         const response = await fetch('http://localhost:8090/api/sales/');
         if (response.ok) {
             const data = await response.json();
@@ -26,8 +26,8 @@ function SalespersonHistory() {
     }
 
     useEffect(() => {
-        fetchSalespersonData();
-        fetchSalesData();
+        getSalespersonData();
+        getSalesData();
     }, [])
 
     return (

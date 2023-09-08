@@ -3,6 +3,8 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import ManufacturerList from './ManufactuerList';
 import ManufacturerForm from './ManufacturerForm';
+import AutomobileList from './AutomobileList';
+import AutomobileForm from './AutomobileForm';
 import SalespersonList from './SalespersonList';
 import SalespersonForm from './SalespersonForm';
 import CustomerList from './CustomerList';
@@ -28,6 +30,10 @@ function App() {
           <Route path="manufacturers/">
             <Route index element={<ManufacturerList />} />
             <Route path="create/" element={<ManufacturerForm />} />
+          </Route>
+          <Route path="automobiles/">
+            <Route index element={<AutomobileList />} />
+            <Route path="create/" element={<AutomobileForm />} />
           </Route>
           <Route path="salespeople/">
             <Route index element={<SalespersonList />} />
